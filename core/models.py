@@ -4,10 +4,9 @@ from django.contrib.auth.models import User
 ROOM_TYPE_CHOICES = [
     ('Single Room', 'Single Room'),
     ('Double Room', 'Double Room'),
-    ('2BHK', '2BHK'),
-    ('3BHK', '3BHK'),
+    ('Flat 2BHK', 'Flat 2BHK'),
+    ('Flat 3BHK', 'Flat 3BHK'),
     ('PG', 'PG'),
-    ('Flat', 'Flat'),
 ]
 
 class Room(models.Model):

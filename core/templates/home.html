@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Room Rental</title>
+    <title>RoomHills</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,7 +18,7 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg custom-navbar px-3">
-    <a class="navbar-brand fw-bold text-white" href="/"> RoomRental</a>
+    <a class="navbar-brand fw-bold text-white" href="/"> RoomHills</a>
 
     <!-- Mobile Toggle -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -118,10 +118,10 @@
         </p>
     {% endif %}
 
-    {% if rooms %}
+    {% if top_rooms|length > 0 %}
     <div class="row g-4">
 
-        {% for room in rooms %}
+        {% for room in top_rooms %}
         <div class="col-12 col-sm-6 col-md-4">
 
             <a href="{% url 'room_detail' room.id %}" class="text-decoration-none">
@@ -158,13 +158,13 @@
         </p>
 
         <p class="address">
-    📍 {{ room.full_address|truncatechars:50 }}
+     {{ room.full_address|truncatechars:50 }}
 </p>
 
         <a href="{% url 'room_detail' room.id %}" class="view-btn">
             View Details →
         </a>
-
+{% comment %} 
         {% if user.is_authenticated and room.owner == user %}
         <div class="mt-2">
             <a href="{% url 'edit_room' room.id %}" class="btn btn-sm btn-warning rounded-pill">Edit</a>
@@ -177,7 +177,7 @@
     </button>
 </form>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
 
 </div>
@@ -194,7 +194,11 @@
 
   </div>
 </div>
-
+<div class="text-center mt-4">
+    <a href="{% url 'all_rooms' %}" class="btn btn-dark rounded-pill px-4">
+        View More Rooms →
+    </a>
+</div>
   <!-- ADD BUTTON -->
   <div class="text-center mt-5">
     <a href="{% url 'add_room' %}" class="add-room-btn">
@@ -203,51 +207,201 @@
 </div>
 </div>
 <!-- ABOUT SECTION -->
-<section id="about" class="about-section">
-    <div class="container text-center">
+<section class="about-section" id="about">
 
-        <h2 class="section-title">About <span>Us</span></h2>
+    <!-- BACKGROUND BLUR -->
+    <div class="about-bg"></div>
 
-        <p class="about-text">
-        Finding a suitable room can be difficult, especially for students and working professionals who often have to search street by street. Traditional methods like posters on walls not only take time but also affect the beauty of our city.  
+    <div class="container">
 
-        RoomRental is built to solve this problem by bringing all available rooms onto one simple platform—making the search faster, easier, and more organized.
-        </p>
+        <!-- TITLE -->
+        <div class="text-center mb-5">
 
-    </div>
-</section>
+            <span class="about-tag">
+                Trusted Room Rental Platform
+            </span>
 
-<!-- CONTACT SECTION -->
-<section id="contact" class="contact-section">
-    <div class="container text-center">
+            <h2 class="section-title mt-3">
+                About <span>RoomHills</span>
+            </h2>
 
-        <h2 class="section-title text-white">Contact Us</h2>
+            <p class="about-subtitle">
+                RoomHills helps students and working professionals
+                find trusted rooms and PGs in Shimla easily,
+                without wasting time searching street by street.
+            </p>
 
-        <p class="contact-subtitle">
-            Let’s connect 🤝
-        </p>
+        </div>
 
-        <div class="contact-links mt-4">
+        <!-- ABOUT CARD -->
+        <div class="about-main-card">
 
-            <a href="#" class="contact-btn instagram">
-                <i class="bi bi-instagram"></i>
-            </a>
+            <div class="row g-4">
 
-            <a href="#" class="contact-btn facebook">
-                <i class="bi bi-facebook"></i>
-            </a>
+                <!-- LEFT CONTENT -->
+                <div class="col-lg-6">
 
-            <a href="#" class="contact-btn linkedin">
-                <i class="bi bi-linkedin"></i>
-            </a>
+                    <div class="about-content">
 
-            <a href="#" class="contact-btn whatsapp">
-                <i class="bi bi-whatsapp"></i>
-            </a>
+                        <span class="mini-title">
+                            WHY ROOMHILLS
+                        </span>
+
+                        <h3>
+                            Making Room Hunting Simple & Stress Free
+                        </h3>
+
+                        <p>
+                            Finding rooms in Shimla can be difficult,
+                            especially for students and professionals new to the city.
+                            RoomHills connects tenants directly with room owners
+                            through a clean and modern platform.
+                        </p>
+
+                        <!-- BUTTONS -->
+                        <div class="about-buttons">
+
+                            <a href="#rooms" class="explore-btn">
+                                Explore Rooms
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+
+                            <a href="#contact" class="contact-btn-about">
+                                Contact Us
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- FEATURES -->
+                <div class="col-lg-6">
+
+                    <div class="about-features">
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+
+                            <div>
+                                <h5>Verified Listings</h5>
+                                <span>Trusted room owners</span>
+                            </div>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+
+                            <div>
+                                <h5>Easy Location Access</h5>
+                                <span>Find rooms quickly</span>
+                            </div>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+
+                            <div>
+                                <h5>Direct Contact</h5>
+                                <span>Connect instantly</span>
+                            </div>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+
+                            <div>
+                                <h5>Safe Platform</h5>
+                                <span>Simple and reliable</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
+</section>
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+
+    <div class="container">
+
+        <div class="contact-card text-center">
+
+            <h2 class="section-title text-white">
+                Get In <span>Touch</span>
+            </h2>
+
+            <p class="contact-subtitle">
+                Have questions, suggestions, or want to list your room?
+                We'd love to hear from you 🚀
+            </p>
+
+            <!-- CONTACT INFO -->
+            <div class="contact-info mt-4">
+
+                <div class="contact-item">
+                    <i class="bi bi-envelope-fill"></i>
+                    <span>rahulnavi055@gmail.com</span>
+                </div>
+
+                <div class="contact-item">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>+91 85806 02323</span>
+                </div>
+
+                <div class="contact-item">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <span>Shimla, Himachal Pradesh, India</span>
+                </div>
+
+            </div>
+
+            <!-- SOCIAL BUTTONS -->
+            <div class="contact-links mt-4">
+
+                <a href="#" class="contact-btn instagram">
+                    <i class="bi bi-instagram"></i>
+                </a>
+
+                <a href="#" class="contact-btn facebook">
+                    <i class="bi bi-facebook"></i>
+                </a>
+
+                <a href="#" class="contact-btn linkedin">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+
+                <a href="#" class="contact-btn whatsapp">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer-text mt-4">
+                © 2026 RoomHills. All Rights Reserved. <br>
+                Made with ❤️ in India
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 </div>
